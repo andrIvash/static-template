@@ -49,10 +49,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin('dist'),
-    // new HtmlWebpackPlugin({
-    //   template: 'index.html',
-    //   chunks: ['app', 'common', 'vendors', 'runtime'],
-    // }),
     new MiniCssExtractPlugin({
       filename: devMode ? 
         'assets/styles/[name].css' : 'assets/styles/[name].[hash].css',

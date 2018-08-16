@@ -16,8 +16,8 @@ export default function() {
 
         <ul className="list">
           <li className="list__item">
-            <a className="link" href="/blog/about">
-              Blog
+            <a className="link" href="/">
+              Home
             </a>
           </li>
         </ul>

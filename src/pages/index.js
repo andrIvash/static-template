@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer';
 // import '../styles/app.css';
 
-export default function() {
-  return (
-    <div className="wrapper">
-      <div className="page__header">
-        <Header />
-      </div>
+class App extends Component {
 
-      <main className="page__content">
-        <h2 className="heading heading--1">
-         Home page.
-        </h2> 
+  onSelect = () => {
+    console.log('click');
+  }
 
-        <ul className="list">
-          <li className="list__item">
-            <a className="link" href="/blog/about">
-              Home
-            </a>
-          </li>
-        </ul>
-      </main>
+  render() {
+    return (
+      <div className="wrapper">
+        <div className="page__header">
+          <Header handleSelect = {this.onSelect} />
+        </div>
 
-      <Footer className="page__footer" />
-    </div>  
-  );
+        <main className="page__content">
+          <h2 className="heading heading--1">
+          Home page.
+          </h2> 
+
+          <ul className="list">
+            <li className="list__item">
+              <a className="link" href="/blog">
+                Blog
+              </a>
+            </li>
+          </ul>
+        </main>
+
+        <Footer className="page__footer" />
+      </div>  
+    );
+  };
 }
+
+export default App;
