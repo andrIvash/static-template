@@ -1,3 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+  --main-title-color: brown;
+  --main-text-color: rgba(96, 0, 0, 1);
+
+  --main-title-font: Roboto;
+}
+
 .wrapper {
   background: green;
 }
