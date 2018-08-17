@@ -2,7 +2,7 @@
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import webpack from 'webpack';
 import path from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
 
 const devMode = process.env.NODE_ENV !== 'production';
 console.log('devMode', devMode);
@@ -49,12 +49,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin('dist'),
-    new MiniCssExtractPlugin({
-      filename: devMode ? 
-        'assets/styles/[name].css' : 'assets/styles/[name].[hash].css',
-      chunkFilename: devMode ?
-        'assets/styles/[id].css' : 'assets/styles/[id].[hash].css'
-    })
   ],
   module: {
     rules: [
@@ -74,22 +68,13 @@ module.exports = {
               }
             }
           ]
-        },
-        {
-          test: /\.(woff|woff2|eot|ttf|otf)$/,
-          use: [
-            'file-loader'
-          ]
-        },
-        {
-          test: /\.(sa|sc|c)ss$/,
-          use: [
-            devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-            'css-loader',
-            //'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
-            'postcss-loader'
-          ],
-        }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          'file-loader'
+        ]
+      }
     ],
   },
 };

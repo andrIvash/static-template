@@ -9,7 +9,21 @@ import merge from 'webpack-merge';
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import common from './webpack.common.babel.js';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+// babel hook
+// require('css-modules-require-hook')({
+//     generateScopedName: '[name]__[local]___[hash:base64:5]',
+// });
+// require('babel-core/register')({
+//   presets: ['es2015', 'react']
+// });
+require.extensions['.scss'] = () => {
+  return;
+};
+require.extensions['.css'] = () => {
+  return;
+};
 
 // find main pages
 const pagesPath = `${__dirname}/src/pages`;
@@ -76,6 +90,18 @@ const generatedPages = pages.map(page => {
       })
     });
 
+const cssProdLoader = {
+  test: /\.css$/,
+  use: [
+    MiniCssExtractPlugin.loader,
+    //'css-loader',
+    'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+    'postcss-loader'
+  ],
+} 
+
+common.module.rules.push(cssProdLoader);
+
 module.exports = merge(common, {
   mode: 'production',
   entry: {
@@ -93,13 +119,17 @@ module.exports = merge(common, {
         parallel: true,
         sourceMap: true
       }),
-      //new OptimizeCSSAssetsPlugin({})
+      new OptimizeCSSAssetsPlugin({})
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'assets/styles/[name].[hash].css',
+      chunkFilename: 'assets/styles/[id].[hash].css'
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
     ...generatedPages
-  ],
+  ]
 });
